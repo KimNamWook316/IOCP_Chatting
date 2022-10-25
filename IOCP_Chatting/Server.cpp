@@ -108,6 +108,7 @@ int main(int argc, char* argv[])
 		ioInfo->wsaBuf.len = bufSize;
 		ioInfo->wsaBuf.buf = ioInfo->buffer;
 		ioInfo->rwMode = RW_MODE::READ;
+		ioInfo->refCount = 0;
 
 		WSARecv(handleInfo->hClntSocket, &(ioInfo->wsaBuf), 1, &recvBytes, 
 			&flags, &(ioInfo->overlapped), NULL);
@@ -170,14 +171,17 @@ unsigned int __stdcall IOThreadFunc(void* CompletionIO)
 			ioInfo->wsaBuf.len = bufSize;
 			ioInfo->wsaBuf.buf = ioInfo->buffer;
 			ioInfo->rwMode = RW_MODE::READ;
+			ioInfo->refCount = 0;
 			WSARecv(sock, &(ioInfo->wsaBuf), 1, NULL, &flags, &(ioInfo->overlapped), NULL);
 		}
 		else
 		{
+			EnterCriticalSection(&crt);
 			--ioInfo->refCount;
+			LeaveCriticalSection(&crt);
 			
 			// 이 조건에 들어온 스레드가 ioInfo를 참조하는 마지막 스레드이다.
-			if (ioInfo->refCount == 0)
+			if (ioInfo->refCount <= 0)
 			{
 				printf("Message Sent To %d Players\n", clientList.size());
 				free(ioInfo);
