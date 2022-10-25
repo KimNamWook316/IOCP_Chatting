@@ -1,0 +1,4 @@
+﻿  Client.cpp
+D:\Study\IOCP_Chatting\IOCP_Chatting_Client\Client.cpp(33,6): warning C4101: 'strLen': unreferenced local variable
+D:\Study\IOCP_Chatting\IOCP_Chatting_Client\Client.cpp(33,14): warning C4101: 'readLen': unreferenced local variable
+  IOCP_Chatting_Client.vcxproj -> D:\Study\IOCP_Chatting\Debug\IOCP_Chatting_Client.exe

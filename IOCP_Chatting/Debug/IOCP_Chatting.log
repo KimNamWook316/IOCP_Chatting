@@ -1,0 +1,3 @@
+﻿  Server.cpp
+D:\Study\IOCP_Chatting\IOCP_Chatting\Server.cpp(70,20): warning C4018: '<': signed/unsigned mismatch
+  IOCP_Chatting.vcxproj -> D:\Study\IOCP_Chatting\Debug\IOCP_Chatting_Server.exe
